@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    container_name: dnd-db
+    image: mysql
+    environment:
+      MYSQL_DATABASE: dnd
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      TZ: Asia/Seoul
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+    restart: always
+
+  server:
+    container_name: server
+    image: kiseo/dnd-be
+    ports:
+      - "8080:8080"
+    environment:
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
