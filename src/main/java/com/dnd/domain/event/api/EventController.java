@@ -3,6 +3,7 @@ package com.dnd.domain.event.api;
 import com.dnd.domain.common.annotation.LoginUsers;
 import com.dnd.domain.event.application.EventService;
 import com.dnd.domain.event.dto.CreateEventRequest;
+import com.dnd.domain.event.dto.MyEventResponse;
 import com.dnd.domain.event.dto.SearchEventRequest;
 import com.dnd.domain.event.dto.SearchEventResponse;
 import com.dnd.global.common.response.GlobalResponse;
@@ -34,7 +35,7 @@ public class EventController {
     }
 
     @Operation(summary = "반경 내 이벤트 조회")
-    @GetMapping
+    @PostMapping
     public List<SearchEventResponse> findEvent(@RequestBody @Valid SearchEventRequest request) {
         return eventService.searchEvents(request);
     }
