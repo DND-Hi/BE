@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dnd.domain.member.application.MemberService;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,7 +21,9 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@GetMapping("/me")
-	public MemberResponse me(@LoginUsers CustomUserDetails userDetails) {
+	public MemberResponse me(
+		@Parameter(hidden = true) @LoginUsers CustomUserDetails userDetails
+		) {
 		return memberService.findOneMember(userDetails.getMemberId());
 	}
 }

@@ -6,6 +6,7 @@ import com.dnd.domain.bookmark.dto.CreateBookmarkRequest;
 import com.dnd.domain.common.annotation.LoginUsers;
 import com.dnd.global.config.security.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class BookmarkController {
     @PostMapping
     public Long create(
             @RequestBody @Valid CreateBookmarkRequest request,
+            @Parameter(hidden = true)
             @LoginUsers CustomUserDetails userDetails) {
 
         return bookmarkService.register(request, userDetails.getMemberId());
@@ -30,13 +32,16 @@ public class BookmarkController {
 
     @Operation(summary = "유저의 북마크 조회")
     @GetMapping
-    public List<BookmarkResponse> create(@LoginUsers CustomUserDetails userDetails) {
+    public List<BookmarkResponse> create(
+            @Parameter(hidden = true)
+            @LoginUsers CustomUserDetails userDetails) {
          return bookmarkService.findByMember(userDetails.getMemberId());
     }
 
     @Operation(summary = "유저의 북마크 삭제")
     @DeleteMapping
     public void delete(
+            @Parameter(hidden = true)
             @LoginUsers CustomUserDetails userDetails,
             Long bookmarkId) {
 
