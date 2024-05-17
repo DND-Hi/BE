@@ -28,4 +28,6 @@ public class CreateEventRequest {
     private String reservationUrl;
 
     private Integer cost;
+
+    private String imageUrl;
 }

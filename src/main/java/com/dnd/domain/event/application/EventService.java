@@ -8,10 +8,16 @@ import com.dnd.domain.event.dto.CreateEventRequest;
 import com.dnd.domain.event.dto.SearchEventProjection;
 import com.dnd.domain.event.dto.SearchEventRequest;
 import com.dnd.domain.event.dto.SearchEventResponse;
+import com.dnd.domain.image.dao.ImageRepository;
+import com.dnd.domain.image.domain.Image;
+import com.dnd.domain.image.domain.ImageFileExtension;
+import com.dnd.domain.image.domain.ImageType;
 import com.dnd.domain.member.dao.MemberRepository;
 import com.dnd.domain.member.domain.Member;
 import com.dnd.global.error.exception.CustomException;
 import com.dnd.global.error.exception.ErrorCode;
+import com.dnd.global.util.SpringEnvironmentUtil;
+import com.dnd.infra.storage.StorageProperties;
 
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
@@ -29,6 +35,9 @@ public class EventService {
     private final EventRepository eventRepository;
     private final MemberRepository memberRepository;
     private final EventLocationRepository eventLocationRepository;
+    private final ImageRepository imageRepository;
+    private final StorageProperties storageProperties;
+    private final SpringEnvironmentUtil springEnvironmentUtil;
 
     @Transactional
     public Long register(CreateEventRequest request, Long memberId) {
@@ -45,6 +54,7 @@ public class EventService {
                     request.getFinishAt(),
                     request.getReservationUrl(),
                     request.getCost(),
+                    request.getImageUrl(),
                     member
             );
 

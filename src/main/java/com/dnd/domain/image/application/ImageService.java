@@ -66,7 +66,6 @@ public class ImageService {
 			);
 
 		String presignedUrl = amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
-		event.updateImageUploadStatusPending();
 
 		imageRepository.save(
 			Image.createImage(

@@ -92,6 +92,7 @@ public class Event extends BaseTimeEntity implements Serializable {
             LocalDateTime finishAt,
             String reservationUrl,
             Integer cost,
+            String imageUrl,
             Member member) {
 
         return Event.builder()
@@ -103,6 +104,7 @@ public class Event extends BaseTimeEntity implements Serializable {
                 .latitude(latitude)
                 .startAt(startAt)
                 .finishAt(finishAt)
+                .imageUrl(imageUrl)
                 .member(member)
                 .uploadStatus(ImageUploadStatus.NONE)
                 .reservationUrl(reservationUrl)
@@ -118,6 +120,9 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.imageUrl = imageUrl;
     }
 
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public void updateImageUploadStatusPending() {
         if (this.uploadStatus != ImageUploadStatus.NONE) {
