@@ -30,7 +30,7 @@ public class Event extends BaseTimeEntity {
 
     private String host;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 4000)
     private Point location;
 
     private LocalDateTime startAt;
