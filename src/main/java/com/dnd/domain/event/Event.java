@@ -8,12 +8,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Event extends BaseTimeEntity {
+public class Event extends BaseTimeEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,10 @@ public class Event extends BaseTimeEntity {
     @Column(columnDefinition = "POINT SRID 4326")
     private Point location;
 
+    private Double longitude;
+
+    private Double latitude;
+
     private LocalDateTime startAt;
 
     private LocalDateTime finishAt;
@@ -38,12 +43,16 @@ public class Event extends BaseTimeEntity {
                  String description,
                  String host,
                  Point location,
+                 Double longitude,
+                 Double latitude,
                  LocalDateTime startAt,
                  LocalDateTime finishAt) {
         this.title = title;
         this.description = description;
         this.host = host;
         this.location = location;
+        this.longitude = longitude;
+        this.latitude = latitude;
         this.startAt = startAt;
         this.finishAt = finishAt;
     }
@@ -53,6 +62,8 @@ public class Event extends BaseTimeEntity {
             String description,
             String host,
             Point location,
+            Double longitude,
+            Double latitude,
             LocalDateTime startAt,
             LocalDateTime finishAt) {
 
@@ -61,6 +72,8 @@ public class Event extends BaseTimeEntity {
                 .description(description)
                 .host(host)
                 .location(location)
+                .longitude(longitude)
+                .latitude(latitude)
                 .startAt(startAt)
                 .finishAt(finishAt)
                 .build();
