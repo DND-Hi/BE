@@ -1,8 +1,14 @@
 package com.dnd.domain.image.application;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
+import com.dnd.domain.image.dto.response.ImageResponse;
+import com.dnd.domain.image.handler.ImageStorageHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +35,7 @@ import com.dnd.global.util.SpringEnvironmentUtil;
 import com.dnd.infra.storage.StorageProperties;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +43,7 @@ import lombok.RequiredArgsConstructor;
 public class ImageService {
 
 	private final ImageRepository imageRepository;
+	private final ImageStorageHandler imageStorageHandler;
 	private final MemberRepository memberRepository;
 	private final EventRepository eventRepository;
 	private final StorageProperties storageProperties;
@@ -164,4 +172,27 @@ public class ImageService {
 		return expiration;
 	}
 
+	public ImageResponse upload(MultipartFile multipartFile) {
+		File file = convertMultipartFileToFile(multipartFile)
+				.orElseThrow();
+
+		return imageStorageHandler.upload(file);
+	}
+
+	private Optional<File> convertMultipartFileToFile(MultipartFile multipartFile) {
+		File file = new File(System.getProperty("user.dir") + "/" + multipartFile.getOriginalFilename());
+
+		try {
+			if (file.createNewFile()) {
+				try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+					fileOutputStream.write(multipartFile.getBytes());
+				}
+				return Optional.of(file);
+			}
+
+		} catch (IOException e) {
+			throw new RuntimeException("IO Exception");
+		}
+		return Optional.empty();
+	}
 }

@@ -1,10 +1,8 @@
 package com.dnd.domain.image.api;
 
+import com.dnd.domain.image.dto.response.ImageResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.dnd.domain.common.annotation.LoginUsers;
 import com.dnd.domain.image.application.ImageService;
@@ -19,6 +17,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
 @RequestMapping("/image")
@@ -26,6 +28,14 @@ import lombok.RequiredArgsConstructor;
 public class ImageController {
 
 	private final ImageService imageService;
+
+	@Operation(summary = "이미지 업로드")
+	@PostMapping(consumes = {MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
+	public ImageResponse upload(@RequestPart("file") MultipartFile multipartFile) {
+		ImageResponse response = imageService.upload(multipartFile);
+		return response;
+	}
+
 	@Operation(
 		summary = "축제 이미지 Presigned URL 생성",
 		description = "축제 이미지 Presigned URL를 생성합니다.")
