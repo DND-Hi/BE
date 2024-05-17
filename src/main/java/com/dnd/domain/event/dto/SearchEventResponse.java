@@ -17,6 +17,7 @@ public class SearchEventResponse {
     private String title;
     private String description;
     private String host;
+    private String imageUrl;
     private Double longitude;
     private Double latitude;
     private LocalDateTime startAt;
