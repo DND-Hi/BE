@@ -37,4 +37,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     );
 
     List<Event> findAllByMember(Member member);
+
+    List<Event> findByTitleContaining(String keyword);
 }

@@ -52,4 +52,9 @@ public class EventController {
         return eventService.findEvent(eventId);
     }
 
+    @Operation(summary = "이벤트 검색")
+    @GetMapping("/search")
+    public List<SearchEventResponse> eventSearch(@RequestParam String keyword) {
+        return eventService.searchEvent(keyword);
+    }
 }
