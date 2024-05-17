@@ -59,7 +59,6 @@ public class Event extends BaseTimeEntity implements Serializable {
     public Event(String title,
                  String description,
                  String host,
-                 Point location,
                  Double longitude,
                  Double latitude,
                  String imageUrl,
@@ -72,7 +71,6 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.title = title;
         this.description = description;
         this.host = host;
-        this.location = location;
         this.longitude = longitude;
         this.latitude = latitude;
         this.imageUrl = imageUrl;
@@ -88,7 +86,6 @@ public class Event extends BaseTimeEntity implements Serializable {
             String title,
             String description,
             String host,
-            Point location,
             Double longitude,
             Double latitude,
             LocalDateTime startAt,
@@ -101,7 +98,6 @@ public class Event extends BaseTimeEntity implements Serializable {
                 .title(title)
                 .description(description)
                 .host(host)
-                .location(location)
                 .uploadStatus(ImageUploadStatus.NONE)
                 .longitude(longitude)
                 .latitude(latitude)

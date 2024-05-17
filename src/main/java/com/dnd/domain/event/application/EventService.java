@@ -1,10 +1,13 @@
 package com.dnd.domain.event.application;
 
+import com.dnd.domain.event.dao.EventLocationRepository;
 import com.dnd.domain.event.domain.Event;
 import com.dnd.domain.event.dao.EventRepository;
+import com.dnd.domain.event.domain.EventLocation;
 import com.dnd.domain.event.dto.CreateEventRequest;
 import com.dnd.domain.event.dto.SearchEventProjection;
 import com.dnd.domain.event.dto.SearchEventRequest;
+import com.dnd.domain.event.dto.SearchEventResponse;
 import com.dnd.domain.member.dao.MemberRepository;
 import com.dnd.domain.member.domain.Member;
 import com.dnd.global.error.exception.CustomException;
@@ -25,19 +28,17 @@ public class EventService {
 
     private final EventRepository eventRepository;
     private final MemberRepository memberRepository;
+    private final EventLocationRepository eventLocationRepository;
 
     @Transactional
     public Long register(CreateEventRequest request, Long memberId) {
         Member member = memberRepository
             .findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
-        Event event;
 
-        try {
-            event = Event.createEvent(
+        Event event = Event.createEvent(
                     request.getTitle(),
                     request.getDescription(),
                     request.getHost(),
-                    getGeoInfo(request.getLongitude(), request.getLatitude()),
                     request.getLongitude(),
                     request.getLatitude(),
                     request.getStartAt(),
@@ -46,33 +47,38 @@ public class EventService {
                     request.getCost(),
                     member
             );
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
 
-        eventRepository.saveWithPoint(
-                request.getTitle(),
-                request.getDescription(),
-                request.getHost(),
-                makePoint(request.getLatitude(), request.getLongitude()),
-                request.getLongitude(),
-                request.getLatitude(),
-                request.getStartAt(),
-                request.getFinishAt(),
-                request.getReservationUrl(),
-                request.getCost()
-        );
+        eventRepository.save(event);
+        eventLocationRepository.saveWithPoint(event.getId(), makePoint(request.getLatitude(), request.getLongitude()));
 
         return event.getId();
     }
 
     @Transactional(readOnly = true)
-    public List<SearchEventProjection> searchEvents(SearchEventRequest request) {
-        return eventRepository.findAllByLocation(
+    public List<SearchEventResponse> searchEvents(SearchEventRequest request) {
+        List<Long> result = eventLocationRepository.findAllByLocation(
                 request.getLongitude(),
                 request.getLatitude(),
                 request.getDistance()
         );
+
+        List<Event> events = result.stream()
+                .map(id -> eventRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND)))
+                .toList();
+
+        List<SearchEventResponse> response = events.stream()
+                .map(event -> new SearchEventResponse(
+                        event.getId(),
+                        event.getTitle(),
+                        event.getDescription(),
+                        event.getHost(),
+                        event.getLongitude(),
+                        event.getLatitude(),
+                        event.getStartAt(),
+                        event.getFinishAt())
+                ).toList();
+
+        return response;
     }
 
     private String makePoint(Double latitude, Double longitude) {
