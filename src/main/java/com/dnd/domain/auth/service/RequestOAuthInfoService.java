@@ -38,4 +38,13 @@ public class RequestOAuthInfoService {
 		String accessToken = client.requestAccessToken(params);
 		return client.requestOAuthInfo(accessToken);
 	}
+
+	public OAuthInfoResponse requestKakaoToken(String kakaoToken) {
+
+		OAuthApiClient client = clients.get(OauthProvider.KAKAO);
+		if (client == null) {
+			throw new IllegalArgumentException("No client found for the given OAuth provider");
+		}
+		return client.requestOAuthInfo(kakaoToken);
+	}
 }

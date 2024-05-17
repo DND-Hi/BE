@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dnd.domain.auth.dto.request.KakaoTokenRequest;
 import com.dnd.domain.auth.dto.response.SocialLoginResponse;
 import com.dnd.domain.auth.kakao.KakaoLoginParams;
 import com.dnd.domain.auth.service.AuthService;
@@ -24,6 +25,22 @@ public class AuthController {
 		@RequestBody KakaoLoginParams params
 		) {
 		SocialLoginResponse response = authService.socialLoginMember(params);
+
+		// 서버 쿠키 사용 시
+		// String accessToken = response.accessToken();
+		// String refreshToken = response.refreshToken();
+		// HttpHeaders tokenHeaders = cookieUtil.generateTokenCookies(accessToken, refreshToken);
+
+		return ResponseEntity.ok()
+			// .headers(tokenHeaders)
+			.body(response);
+	}
+
+	@PostMapping("/oauth/kakao")
+	public ResponseEntity<SocialLoginResponse> kakaoSocialLogin(
+		@RequestBody KakaoTokenRequest request
+		) {
+		SocialLoginResponse response = authService.socialLoginMemberKakaoToken(request.accessToken());
 
 		// 서버 쿠키 사용 시
 		// String accessToken = response.accessToken();
