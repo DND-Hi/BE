@@ -9,6 +9,12 @@ spring:
       - datasource
       - cloud
       - security
+
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+
   jpa:
     hibernate:
       ddl-auto: update

@@ -39,11 +39,11 @@ public class BookmarkController {
     }
 
     @Operation(summary = "유저의 북마크 삭제")
-    @DeleteMapping
+    @DeleteMapping("/{bookmarkId}")
     public void delete(
             @Parameter(hidden = true)
             @LoginUsers CustomUserDetails userDetails,
-            Long bookmarkId) {
+            @PathVariable Long bookmarkId) {
 
         bookmarkService.delete(userDetails.getMemberId(), bookmarkId);
     }
