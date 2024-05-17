@@ -22,14 +22,10 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
+
     @Operation(summary = "이벤트 생성")
-<<<<<<< Updated upstream
     @PostMapping
-    public GlobalResponse create(
-=======
-    @PostMapping("/create")
     public Long create(
->>>>>>> Stashed changes
         @RequestBody @Valid CreateEventRequest request,
         @Parameter(hidden = true)
         @LoginUsers CustomUserDetails userDetails) {
@@ -38,16 +34,9 @@ public class EventController {
     }
 
     @Operation(summary = "이벤트 조회")
-<<<<<<< Updated upstream
     @GetMapping
-    public GlobalResponse search(@RequestBody @Valid SearchEventRequest request) {
-        List<SearchEventResponse> searchResults = eventService.searchEvents(request);
-        return GlobalResponse.success(200, searchResults);
-=======
-    @GetMapping("/search")
-    public List<SearchEventResponse>  search(@RequestBody @Valid SearchEventRequest request) {
-        return  eventService.searchEvents(request);
->>>>>>> Stashed changes
+    public List<SearchEventResponse> search(@RequestBody @Valid SearchEventRequest request) {
+        return eventService.searchEvents(request);
     }
 
     @Operation(summary = "내가 만든 축제 조회")
