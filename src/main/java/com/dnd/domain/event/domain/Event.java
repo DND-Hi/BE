@@ -2,6 +2,8 @@ package com.dnd.domain.event.domain;
 
 import com.dnd.domain.common.model.BaseTimeEntity;
 import com.dnd.domain.member.domain.Member;
+import com.dnd.global.error.exception.CustomException;
+import com.dnd.global.error.exception.ErrorCode;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -106,5 +108,21 @@ public class Event extends BaseTimeEntity implements Serializable {
                 .reservationUrl(reservationUrl)
                 .cost(cost)
                 .build();
+    }
+
+    public void updateImageUploadStatusComplete(String imageUrl) {
+        if (this.uploadStatus != ImageUploadStatus.PENDING) {
+            throw new CustomException(ErrorCode.EVENT_UPLOAD_STATUS_IS_NOT_PENDING);
+        }
+        this.uploadStatus = ImageUploadStatus.COMPLETE;
+        this.imageUrl = imageUrl;
+    }
+
+
+    public void updateImageUploadStatusPending() {
+        if (this.uploadStatus != ImageUploadStatus.NONE) {
+            throw new CustomException(ErrorCode.EVENT_UPLOAD_STATUS_IS_NOT_NONE);
+        }
+        this.uploadStatus = ImageUploadStatus.PENDING;
     }
 }
