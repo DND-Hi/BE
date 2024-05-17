@@ -2,6 +2,7 @@ package com.dnd.domain.bookmark.application;
 
 import com.dnd.domain.bookmark.dao.BookmarkRepository;
 import com.dnd.domain.bookmark.domain.Bookmark;
+import com.dnd.domain.bookmark.dto.BookmarkResponse;
 import com.dnd.domain.bookmark.dto.CreateBookmarkRequest;
 import com.dnd.domain.event.dao.EventRepository;
 import com.dnd.domain.event.domain.Event;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -23,8 +26,7 @@ public class BookmarkService {
 
     @Transactional
     public Long register(CreateBookmarkRequest request, Long memberId) {
-        Member member = memberRepository
-                .findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+        Member member = getMember(memberId);
 
         Event event = eventRepository.findById(request.getEventId())
                 .orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
@@ -33,5 +35,15 @@ public class BookmarkService {
         bookmarkRepository.save(bookMark);
 
         return bookMark.getId();
+    }
+
+    public List<BookmarkResponse> findByMember(Long memberId) {
+        Member member = getMember(memberId);
+        return bookmarkRepository.findByMemberId(memberId);
+    }
+
+    private Member getMember(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
     }
 }

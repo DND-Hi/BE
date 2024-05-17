@@ -1,6 +1,7 @@
 package com.dnd.domain.bookmark.api;
 
 import com.dnd.domain.bookmark.application.BookmarkService;
+import com.dnd.domain.bookmark.dto.BookmarkResponse;
 import com.dnd.domain.bookmark.dto.CreateBookmarkRequest;
 import com.dnd.domain.common.annotation.LoginUsers;
 import com.dnd.global.common.response.GlobalResponse;
@@ -8,10 +9,9 @@ import com.dnd.global.config.security.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/bookmark")
@@ -28,5 +28,12 @@ public class BookmarkController {
 
         Long bookmarkId = bookmarkService.register(request, userDetails.getMemberId());
         return GlobalResponse.success(200, bookmarkId);
+    }
+
+    @Operation(summary = "유저의 북마크 조회")
+    @GetMapping("/search")
+    public GlobalResponse create(@LoginUsers CustomUserDetails userDetails) {
+        List<BookmarkResponse> result = bookmarkService.findByMember(userDetails.getMemberId());
+        return GlobalResponse.success(200, result);
     }
 }
