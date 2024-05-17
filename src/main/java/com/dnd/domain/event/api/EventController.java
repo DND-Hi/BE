@@ -35,7 +35,7 @@ public class EventController {
 
     @Operation(summary = "반경 내 이벤트 조회")
     @GetMapping
-    public List<SearchEventResponse> search(@RequestBody @Valid SearchEventRequest request) {
+    public List<SearchEventResponse> findEvent(@RequestBody @Valid SearchEventRequest request) {
         return eventService.searchEvents(request);
     }
 
