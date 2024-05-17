@@ -30,10 +30,9 @@ public class ImageController {
 	private final ImageService imageService;
 
 	@Operation(summary = "이미지 업로드")
-	@PostMapping(consumes = {MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
-	public ImageResponse upload(@RequestPart("file") MultipartFile multipartFile) {
-		ImageResponse response = imageService.upload(multipartFile);
-		return response;
+	@PostMapping(consumes = {MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE}, path = "/{type}")
+	public ImageResponse upload(@RequestPart("file") MultipartFile multipartFile, @PathVariable String type) {
+		return imageService.upload(multipartFile, type);
 	}
 
 	@Operation(

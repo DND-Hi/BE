@@ -6,5 +6,5 @@ import java.io.File;
 
 public interface ImageStorageHandler {
 
-    ImageResponse upload(File file);
+    ImageResponse upload(File file, String type);
 }

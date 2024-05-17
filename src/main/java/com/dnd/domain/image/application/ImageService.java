@@ -173,11 +173,11 @@ public class ImageService {
 		return expiration;
 	}
 
-	public ImageResponse upload(MultipartFile multipartFile) {
+	public ImageResponse upload(MultipartFile multipartFile, String type) {
 		File file = convertMultipartFileToFile(multipartFile)
 				.orElseThrow();
 
-		return imageStorageHandler.upload(file);
+		return imageStorageHandler.upload(file, type);
 	}
 
 	private Optional<File> convertMultipartFileToFile(MultipartFile multipartFile) {

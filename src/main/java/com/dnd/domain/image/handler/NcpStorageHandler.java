@@ -20,8 +20,8 @@ public class NcpStorageHandler implements ImageStorageHandler{
     private static final String BUCKET = "more-images";
 
     @Override
-    public ImageResponse upload(File file) {
-        String key = generateRandomFileName(file);
+    public ImageResponse upload(File file, String type) {
+        String key = generateRandomFileName(file, type);
         String path = putImage(file, key);
         removeFile(file);
 
@@ -32,8 +32,8 @@ public class NcpStorageHandler implements ImageStorageHandler{
         file.delete();
     }
 
-    private String generateRandomFileName(File file) {
-        return ROOT_DIRNAME + "/" + UUID.randomUUID().toString().substring(0, 8) + "-" + file.getName();
+    private String generateRandomFileName(File file, String type) {
+        return ROOT_DIRNAME + "/" + type + "/" + UUID.randomUUID().toString().substring(0, 8) + "-" + file.getName();
     }
 
     private String putImage(File uploadFile, String fileName) {
