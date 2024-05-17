@@ -44,6 +44,9 @@ public class Event extends BaseTimeEntity implements Serializable {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private String reservationUrl;
+
+    private Integer cost;
 
     @Builder(access = AccessLevel.PRIVATE)
     public Event(String title,
@@ -54,6 +57,8 @@ public class Event extends BaseTimeEntity implements Serializable {
                  Double latitude,
                  LocalDateTime startAt,
                  LocalDateTime finishAt,
+                 String reservationUrl,
+                 Integer cost,
                  Member member) {
         this.title = title;
         this.description = description;
@@ -64,6 +69,8 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.startAt = startAt;
         this.finishAt = finishAt;
         this.member = member;
+        this.reservationUrl = reservationUrl;
+        this.cost = cost;
     }
 
     public static Event createEvent(
@@ -75,6 +82,8 @@ public class Event extends BaseTimeEntity implements Serializable {
             Double latitude,
             LocalDateTime startAt,
             LocalDateTime finishAt,
+            String reservationUrl,
+            Integer cost,
             Member member) {
 
         return Event.builder()
@@ -87,6 +96,8 @@ public class Event extends BaseTimeEntity implements Serializable {
                 .startAt(startAt)
                 .finishAt(finishAt)
                 .member(member)
+                .reservationUrl(reservationUrl)
+                .cost(cost)
                 .build();
     }
 }

@@ -11,4 +11,6 @@ public interface SearchEventProjection {
     Double getLatitude();
     LocalDateTime startAt();
     LocalDateTime finishAt();
+    String getReservationUrl();
+    Integer getCost();
 }

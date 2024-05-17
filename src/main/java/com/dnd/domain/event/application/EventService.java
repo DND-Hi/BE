@@ -34,30 +34,35 @@ public class EventService {
 
         try {
             event = Event.createEvent(
-                request.getTitle(),
-                request.getDescription(),
-                request.getHost(),
-                getGeoInfo(request.getLongitude(), request.getLatitude()),
-                request.getLongitude(),
-                request.getLatitude(),
-                request.getStartAt(),
-                request.getFinishAt(),
-                member
+                    request.getTitle(),
+                    request.getDescription(),
+                    request.getHost(),
+                    getGeoInfo(request.getLongitude(), request.getLatitude()),
+                    request.getLongitude(),
+                    request.getLatitude(),
+                    request.getStartAt(),
+                    request.getFinishAt(),
+                    request.getReservationUrl(),
+                    request.getCost(),
+                    member
             );
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
         eventRepository.saveWithPoint(
-            request.getTitle(),
-            request.getDescription(),
-            request.getHost(),
-            makePoint(request.getLatitude(), request.getLongitude()),
-            request.getLongitude(),
-            request.getLatitude(),
-            request.getStartAt(),
-            request.getFinishAt()
+                request.getTitle(),
+                request.getDescription(),
+                request.getHost(),
+                makePoint(request.getLatitude(), request.getLongitude()),
+                request.getLongitude(),
+                request.getLatitude(),
+                request.getStartAt(),
+                request.getFinishAt(),
+                request.getReservationUrl(),
+                request.getCost()
         );
+
         return event.getId();
     }
 
