@@ -28,6 +28,8 @@ public class Event extends BaseTimeEntity {
 
     private String description;
 
+    private String host;
+
     @Column(nullable = false)
     private Point location;
 
@@ -38,11 +40,13 @@ public class Event extends BaseTimeEntity {
     @Builder(access = AccessLevel.PRIVATE)
     public Event(String title,
                  String description,
+                 String host,
                  Point location,
                  LocalDateTime startAt,
                  LocalDateTime finishAt) {
         this.title = title;
         this.description = description;
+        this.host = host;
         this.location = location;
         this.startAt = startAt;
         this.finishAt = finishAt;
@@ -51,6 +55,7 @@ public class Event extends BaseTimeEntity {
     public static Event createEvent(
             String title,
             String description,
+            String host,
             Point location,
             LocalDateTime startAt,
             LocalDateTime finishAt) {
@@ -58,6 +63,7 @@ public class Event extends BaseTimeEntity {
         return Event.builder()
                 .title(title)
                 .description(description)
+                .host(host)
                 .location(location)
                 .startAt(startAt)
                 .finishAt(finishAt)
