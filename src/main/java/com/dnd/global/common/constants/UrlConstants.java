@@ -9,7 +9,7 @@ public enum UrlConstants {
 
 	LOCAL_SERVER_URL("http://localhost:8080"),
 
-	LOCAL_DOMAIN_URL("http://localhost:5173"),
+	LOCAL_DOMAIN_URL("http://localhost:3000"),
 	;
 	private final String value;
 

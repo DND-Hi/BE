@@ -45,11 +45,8 @@ public class WebSecurityConfig {
 	private static final String[] permitAllUrl = {
 		"/",
 		"/auth/**",
+		"/event/**",
 		"/member/**",
-		"/board/**",
-		"/comment/**",
-		"/hashtag/**",
-		"/reaction/**",
 		"/index.html",
 		"/favicon.ico",
 		"/robots.txt",

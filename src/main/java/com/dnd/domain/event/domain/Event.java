@@ -29,6 +29,11 @@ public class Event extends BaseTimeEntity implements Serializable {
 
     private String host;
 
+    private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
+    private ImageUploadStatus uploadStatus;
+
     @Column(columnDefinition = "POINT SRID 4326")
     private Point location;
 
@@ -55,6 +60,7 @@ public class Event extends BaseTimeEntity implements Serializable {
                  Point location,
                  Double longitude,
                  Double latitude,
+                String imageUrl,
                  LocalDateTime startAt,
                  LocalDateTime finishAt,
                  String reservationUrl,
@@ -66,6 +72,7 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.location = location;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.imageUrl = imageUrl;
         this.startAt = startAt;
         this.finishAt = finishAt;
         this.member = member;
