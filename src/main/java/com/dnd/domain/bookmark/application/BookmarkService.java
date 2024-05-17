@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -45,5 +46,20 @@ public class BookmarkService {
     private Member getMember(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+    }
+
+    @Transactional
+    public void delete(Long memberId, Long bookmarkId) {
+        Bookmark bookmark = bookmarkRepository.findById(bookmarkId)
+                .orElseThrow(() -> new CustomException(ErrorCode.BOOKMARK_NOT_FOUND));
+
+        validateMember(memberId, bookmark);
+        bookmarkRepository.delete(bookmark);
+    }
+
+    private void validateMember(Long memberId, Bookmark bookmark) {
+        if (!Objects.equals(bookmark.getMemberId(), memberId)) {
+            throw new CustomException(ErrorCode.BOOKMARK_USER_MISMATCH);
+        }
     }
 }
