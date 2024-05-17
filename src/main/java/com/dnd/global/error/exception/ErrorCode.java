@@ -28,6 +28,13 @@ public enum ErrorCode {
 	// Member
 	MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다."),
 
+	// Event
+	EVENT_UPLOAD_STATUS_IS_NOT_PENDING(HttpStatus.BAD_REQUEST, "축제 이미지 업로드 상태가 PENDING이 아닙니다."),
+	EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 축제입니다."),
+	EVENT_USER_MISMATCH(HttpStatus.BAD_REQUEST, "축제를 생성한 유저와 로그인한 계정이 일치하지 않습니다."),
+
+	EVENT_UPLOAD_STATUS_IS_NOT_NONE(HttpStatus.BAD_REQUEST, "축제 이미지 업로드 상태가 NONE이 아닙니다."),
+
 	;
 	private final HttpStatus status;
 	private final String message;
