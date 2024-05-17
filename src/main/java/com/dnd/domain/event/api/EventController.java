@@ -3,8 +3,8 @@ package com.dnd.domain.event.api;
 import com.dnd.domain.common.annotation.LoginUsers;
 import com.dnd.domain.event.application.EventService;
 import com.dnd.domain.event.dto.CreateEventRequest;
-import com.dnd.domain.event.dto.SearchEventProjection;
 import com.dnd.domain.event.dto.SearchEventRequest;
+import com.dnd.domain.event.dto.SearchEventResponse;
 import com.dnd.global.common.response.GlobalResponse;
 import com.dnd.global.config.security.CustomUserDetails;
 
@@ -34,7 +34,7 @@ public class EventController {
     @Operation(summary = "이벤트 조회")
     @GetMapping("/search")
     public GlobalResponse search(@RequestBody @Valid SearchEventRequest request) {
-        List<SearchEventProjection> searchResults = eventService.searchEvents(request);
+        List<SearchEventResponse> searchResults = eventService.searchEvents(request);
         return GlobalResponse.success(200, searchResults);
     }
 }
