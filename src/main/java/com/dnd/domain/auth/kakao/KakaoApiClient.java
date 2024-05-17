@@ -33,9 +33,6 @@ public class KakaoApiClient implements OAuthApiClient {
 	@Value("${oauth.kakao.client-id}")
 	private String clientId;
 
-	@Value("${oauth.kakao.client-secret")
-	private String clientSecret;
-
 	private final RestTemplate restTemplate;
 
 	@Override
@@ -53,7 +50,6 @@ public class KakaoApiClient implements OAuthApiClient {
 		MultiValueMap<String, String> body = params.makeBody();
 		body.add("grant_type", GRANT_TYPE);
 		body.add("client_id", clientId);
-		body.add("client_secret", clientSecret);
 
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, httpHeaders);
 

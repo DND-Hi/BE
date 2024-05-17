@@ -6,6 +6,9 @@ spring:
   profiles:
     include:
       - actuator
+      - datasource
+      - cloud
+      - security
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,7 +20,7 @@ spring:
       hibernate.hbm2ddl.auto: update
 
   springdoc:
-    packages-to-scan: com.dnd.domain
+    packages-to-scan: com.dnd
     default-consumes-media-type: application/json;charset=UTF-8
     default-produces-media-type: application/json;charset=UTF-8
     swagger-ui:
@@ -30,12 +33,6 @@ spring:
         enabled: true
     cache:
       disabled: true
-
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: ${DB_ROOT_PASSWORD}
-    url: jdbc:mysql://localhost:3306/dnd?useSSL=false&&allowPublicKeyRetrieval=true
 
 # P6spy
 decorator:

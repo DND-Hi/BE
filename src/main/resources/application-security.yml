@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: "security"
+
+util:
+  jwt:
+    secretKey: ${SECRET_KEY:secret}
+oauth:
+  kakao:
+    client-id: ${KAKAO_CLIENT_ID}
+    client-secret: ${KAKAO_CLIENT_SECRET}
+    url:
+      auth: ${KAKAO_AUTH_URL}
+      api: ${KAKAO_API_URL}
