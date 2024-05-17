@@ -36,9 +36,6 @@ public class Event extends BaseTimeEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private ImageUploadStatus uploadStatus;
 
-    @Column(columnDefinition = "POINT SRID 4326")
-    private Point location;
-
     private Double longitude;
 
     private Double latitude;

@@ -35,6 +35,10 @@ public enum ErrorCode {
 
 	EVENT_UPLOAD_STATUS_IS_NOT_NONE(HttpStatus.BAD_REQUEST, "축제 이미지 업로드 상태가 NONE이 아닙니다."),
 
+	// Bookmark
+	BOOKMARK_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 북마크입니다."),
+	BOOKMARK_USER_MISMATCH(HttpStatus.BAD_REQUEST, "북마크를 생성한 유저와 로그인한 계정이 일치하지 않습니다."),
+
 	;
 	private final HttpStatus status;
 	private final String message;
