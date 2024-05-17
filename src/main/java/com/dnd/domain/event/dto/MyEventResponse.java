@@ -1,6 +1,5 @@
 package com.dnd.domain.event.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchEventResponse {
+public class MyEventResponse {
     private Long id;
     private String title;
     private String description;
@@ -22,5 +21,4 @@ public class SearchEventResponse {
     private Double latitude;
     private LocalDateTime startAt;
     private LocalDateTime finishAt;
-    private boolean bookmarked;
 }

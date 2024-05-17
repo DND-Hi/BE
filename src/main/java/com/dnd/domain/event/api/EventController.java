@@ -36,27 +36,31 @@ public class EventController {
 
     @Operation(summary = "반경 내 이벤트 조회")
     @PostMapping
-    public List<SearchEventResponse> findEvent(@RequestBody @Valid SearchEventRequest request) {
-        return eventService.searchEvents(request);
+    public List<SearchEventResponse> findEvent(
+            @RequestBody @Valid SearchEventRequest request,
+            @PathVariable Long memberId) {
+        return eventService.searchEvents(request, memberId);
     }
 
     @Operation(summary = "내가 만든 축제 조회")
     @GetMapping("/my")
-    public List<SearchEventResponse> myEvents
+    public List<MyEventResponse> myEvents
         (@Parameter(hidden = true) @LoginUsers CustomUserDetails userDetails) {
         return eventService.myEvents(userDetails.getMemberId());
     }
 
     @Operation(summary = "이벤트 상세 조회")
     @GetMapping("/{eventId}")
-    public SearchEventResponse eventFind(@PathVariable Long eventId) {
-        return eventService.findEvent(eventId);
+    public SearchEventResponse eventFind(
+            @PathVariable Long eventId,
+            @PathVariable Long memberId) {
+        return eventService.findEvent(eventId, memberId);
     }
 
     @Operation(summary = "이벤트 검색")
     @GetMapping("/search")
-    public List<SearchEventResponse> eventSearch(@RequestParam String keyword) {
-        return eventService.searchEvent(keyword);
+    public List<SearchEventResponse> eventSearch(@RequestParam String keyword, @PathVariable Long memberId) {
+        return eventService.searchEvent(keyword, memberId);
     }
 
     @Operation(summary = "이벤트 수정")
