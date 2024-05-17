@@ -83,22 +83,23 @@ public class WebSecurityConfig {
 			);
 	}
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-
-		configuration.setAllowedOrigins(Arrays.asList(UrlConstants.LOCAL_DOMAIN_URL.getValue(), UrlConstants.IMAGE_DOMAIN_URL.getValue()));
-		configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
-		configuration.addAllowedMethod("*");
-		configuration.addAllowedHeader("*");
-		configuration.setAllowCredentials(true);
-		configuration.addExposedHeader(SET_COOKIE);
-
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-
-		return source;
-	}
+//	@Bean
+//	public CorsConfigurationSource corsConfigurationSource() {
+//		CorsConfiguration configuration = new CorsConfiguration();
+//
+//		configuration.addAllowedOriginPattern(UrlConstants.LOCAL_DOMAIN_URL.getValue());
+//		configuration.addAllowedOrigin("*");
+//		configuration.addAllowedOriginPattern("*");
+//		configuration.addAllowedMethod("*");
+//		configuration.addAllowedHeader("*");
+//		configuration.setAllowCredentials(true);
+//		configuration.addExposedHeader(SET_COOKIE);
+//
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		source.registerCorsConfiguration("/**", configuration);
+//
+//		return source;
+//	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
