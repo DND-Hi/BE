@@ -33,7 +33,7 @@ public class EventController {
 		return eventService.register(request, userDetails.getMemberId());
     }
 
-    @Operation(summary = "이벤트 조회")
+    @Operation(summary = "반경 내 이벤트 조회")
     @GetMapping
     public List<SearchEventResponse> search(@RequestBody @Valid SearchEventRequest request) {
         return eventService.searchEvents(request);

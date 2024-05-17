@@ -4,6 +4,7 @@ import com.dnd.domain.event.dao.EventLocationRepository;
 import com.dnd.domain.event.domain.Event;
 import com.dnd.domain.event.dao.EventRepository;
 import com.dnd.domain.event.domain.EventLocation;
+import com.dnd.domain.event.domain.HostType;
 import com.dnd.domain.event.dto.CreateEventRequest;
 import com.dnd.domain.event.dto.SearchEventProjection;
 import com.dnd.domain.event.dto.SearchEventRequest;
@@ -44,10 +45,13 @@ public class EventService {
         Member member = memberRepository
             .findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
+        HostType hostType = HostType.PRIVATE;
+
         Event event = Event.createEvent(
                     request.getTitle(),
                     request.getDescription(),
                     request.getHost(),
+                    hostType,
                     request.getLongitude(),
                     request.getLatitude(),
                     request.getStartAt(),
