@@ -32,8 +32,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1234
-    url: jdbc:mysql://localhost:3306/dnd?useSSL=false&&allowPublicKeyRetrieval=true
+    password: ${DB_ROOT_PASSWORD}
+#    password: 1234
+    url: jdbc:mysql://dnd-db:3306/dnd?useSSL=false&&allowPublicKeyRetrieval=true
+#    url: jdbc:mysql://localhost:3306/dnd?useSSL=false&&allowPublicKeyRetrieval=true
 
 # P6spy
 decorator:
