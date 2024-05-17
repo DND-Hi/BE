@@ -1,10 +1,6 @@
 package com.dnd.domain.event;
 
 import com.dnd.domain.common.model.BaseTimeEntity;
-import com.dnd.domain.member.domain.Member;
-import com.dnd.domain.member.domain.MemberRole;
-import com.dnd.domain.member.domain.MemberStatus;
-import com.dnd.domain.member.domain.OauthInfo;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -30,7 +26,7 @@ public class Event extends BaseTimeEntity {
 
     private String host;
 
-    @Column(nullable = false, length = 4000)
+    @Column(columnDefinition = "POINT SRID 4326")
     private Point location;
 
     private LocalDateTime startAt;

@@ -35,7 +35,8 @@ public class EventService {
 
     public void searchEvents(SearchEventRequest request) {
         List<Event> events = eventRepository.findAllByLocation(
-                getGeoInfo(request.getLongitude(), request.getLatitude()),
+                request.getLongitude(),
+                request.getLatitude(),
                 request.getDistance()
         );
 
