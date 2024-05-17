@@ -136,4 +136,20 @@ public class EventService {
                 event.getFinishAt()
         );
     }
+
+    public List<SearchEventResponse> searchEvent(String keyword) {
+        List<Event> events = eventRepository.findByTitleContaining(keyword);
+        List<SearchEventResponse> response = events.stream()
+                .map(event -> new SearchEventResponse(
+                        event.getId(),
+                        event.getTitle(),
+                        event.getDescription(),
+                        event.getHost(),
+                        event.getLongitude(),
+                        event.getLatitude(),
+                        event.getStartAt(),
+                        event.getFinishAt())
+                ).toList();
+        return response;
+    }
 }
