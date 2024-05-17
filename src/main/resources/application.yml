@@ -12,7 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
     show-sql: true
     properties:
@@ -33,6 +33,12 @@ spring:
         enabled: true
     cache:
       disabled: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${DB_ROOT_PASSWORD}
+    url: jdbc:mysql://localhost:3306/dnd?useSSL=false&&allowPublicKeyRetrieval=true
 
 # P6spy
 decorator:
