@@ -22,27 +22,25 @@ public class BookmarkController {
 
     @Operation(summary = "북마크 생성")
     @PostMapping
-    public GlobalResponse create(
+    public Long create(
             @RequestBody @Valid CreateBookmarkRequest request,
             @LoginUsers CustomUserDetails userDetails) {
 
-        Long bookmarkId = bookmarkService.register(request, userDetails.getMemberId());
-        return GlobalResponse.success(200, bookmarkId);
+        return bookmarkService.register(request, userDetails.getMemberId());
     }
 
     @Operation(summary = "유저의 북마크 조회")
     @GetMapping
-    public GlobalResponse create(@LoginUsers CustomUserDetails userDetails) {
-        List<BookmarkResponse> result = bookmarkService.findByMember(userDetails.getMemberId());
-        return GlobalResponse.success(200, result);
+    public List<BookmarkResponse> create(@LoginUsers CustomUserDetails userDetails) {
+         return bookmarkService.findByMember(userDetails.getMemberId());
     }
 
     @Operation(summary = "유저의 북마크 삭제")
     @DeleteMapping
-    public GlobalResponse delete(
+    public void delete(
             @LoginUsers CustomUserDetails userDetails,
             Long bookmarkId) {
+
         bookmarkService.delete(userDetails.getMemberId(), bookmarkId);
-        return GlobalResponse.success(204, null);
     }
 }
