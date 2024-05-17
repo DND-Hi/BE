@@ -65,8 +65,9 @@ public class ImageService {
 			);
 
 		String presignedUrl = amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
+		String imageUrl = storageProperties.endpoint() + "/" + storageProperties.bucket() + "/" +  fileName;
 
-		return PresignedUrlResponse.from(presignedUrl);
+		return PresignedUrlResponse.from(imageUrl, presignedUrl);
 	}
 
 	// 축제 이미지 업로드
