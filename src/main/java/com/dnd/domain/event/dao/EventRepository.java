@@ -2,6 +2,8 @@ package com.dnd.domain.event.dao;
 
 import com.dnd.domain.event.dto.SearchEventProjection;
 import com.dnd.domain.event.domain.Event;
+import com.dnd.domain.member.domain.Member;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,4 +35,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             @Param("reservationUrl") String reservationUrl,
             @Param("cost") Integer cost
     );
+
+    List<Event> findAllByMember(Member member);
 }

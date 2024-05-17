@@ -16,6 +16,7 @@ import com.dnd.domain.image.dto.response.PresignedUrlResponse;
 import com.dnd.global.config.security.CustomUserDetails;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +32,7 @@ public class ImageController {
 	@PostMapping("/event/upload-url")
 	public PresignedUrlResponse eventPresignedUrlCreate(
 		@Valid @RequestBody EventImageCreateRequest request,
+		@Parameter(hidden = true)
 		@LoginUsers CustomUserDetails userDetails) {
 		return imageService.createEventPresignedUrl(request, userDetails.getMemberId());
 	}
@@ -39,6 +41,7 @@ public class ImageController {
 	@PostMapping("/event/upload-complete")
 	public void eventImageUploaded(
 		@Valid @RequestBody EventImageUploadCompleteRequest request,
+		@Parameter(hidden = true)
 		@LoginUsers CustomUserDetails userDetails) {
 		imageService.uploadCompleteEventImage(request, userDetails.getMemberId());
 	}
@@ -49,6 +52,7 @@ public class ImageController {
 	@PostMapping("/members/me/upload-url")
 	public PresignedUrlResponse memberProfilePresignedUrlCreate(
 		@Valid @RequestBody MemberProfileImageCreateRequest request,
+		@Parameter(hidden = true)
 		@LoginUsers CustomUserDetails userDetails) {
 		// return imageService.createMemberProfilePresignedUrl(request, userDetails);
 		return null;

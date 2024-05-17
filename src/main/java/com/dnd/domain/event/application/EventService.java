@@ -100,4 +100,40 @@ public class EventService {
         String wkt = String.format("POINT(%s %s)", latitude, longitude);
         return (Point)new WKTReader().read(wkt);
     }
+
+    public List<SearchEventResponse> myEvents(Long memberId) {
+        final Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
+        List<Event> events = eventRepository.findAllByMember(member);
+        List<SearchEventResponse> response = events.stream()
+                .map(event -> new SearchEventResponse(
+                        event.getId(),
+                        event.getTitle(),
+                        event.getDescription(),
+                        event.getHost(),
+                        event.getLongitude(),
+                        event.getLatitude(),
+                        event.getStartAt(),
+                        event.getFinishAt())
+                ).toList();
+        return response;
+
+    }
+
+    public SearchEventResponse findEvent(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
+
+        return new SearchEventResponse(
+                event.getId(),
+                event.getTitle(),
+                event.getDescription(),
+                event.getHost(),
+                event.getLongitude(),
+                event.getLatitude(),
+                event.getStartAt(),
+                event.getFinishAt()
+        );
+    }
 }
