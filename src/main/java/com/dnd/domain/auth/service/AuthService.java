@@ -42,7 +42,7 @@ public class AuthService {
 	private Member signUp(OAuthInfoResponse oAuthInfoResponse, OauthProvider provider) {
 		OauthInfo oauthInfo = OauthInfo.createOauthInfo(oAuthInfoResponse.getSnsId(),
 			provider.getValue(), oAuthInfoResponse.getEmail());
-		Member user = Member.createNormalMember(oauthInfo, oAuthInfoResponse.getNickname());
+		Member user = Member.createNormalMember(oauthInfo, oAuthInfoResponse.getNickname(), oAuthInfoResponse.getProfileImageUrl());
 		return memberRepository.save(user);
 	}
 }

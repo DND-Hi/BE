@@ -6,5 +6,6 @@ public interface OAuthInfoResponse {
 	String getSnsId();
 	String getEmail();
 	String getNickname();
+	String getProfileImageUrl();
 	OauthProvider getOAuthProvider();
 }
