@@ -31,6 +31,9 @@ public class Event extends BaseTimeEntity implements Serializable {
 
     private String host;
 
+    @Enumerated(EnumType.STRING)
+    private HostType hostType;
+
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
@@ -56,6 +59,7 @@ public class Event extends BaseTimeEntity implements Serializable {
     public Event(String title,
                  String description,
                  String host,
+                 HostType hostType,
                  Double longitude,
                  Double latitude,
                  String imageUrl,
@@ -68,6 +72,7 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.title = title;
         this.description = description;
         this.host = host;
+        this.hostType = hostType;
         this.longitude = longitude;
         this.latitude = latitude;
         this.imageUrl = imageUrl;
@@ -83,6 +88,7 @@ public class Event extends BaseTimeEntity implements Serializable {
             String title,
             String description,
             String host,
+            HostType hostType,
             Double longitude,
             Double latitude,
             LocalDateTime startAt,
@@ -96,6 +102,7 @@ public class Event extends BaseTimeEntity implements Serializable {
                 .title(title)
                 .description(description)
                 .host(host)
+                .hostType(hostType)
                 .uploadStatus(ImageUploadStatus.NONE)
                 .longitude(longitude)
                 .latitude(latitude)

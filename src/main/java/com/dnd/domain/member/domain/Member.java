@@ -34,6 +34,9 @@ public class Member extends BaseTimeEntity {
 
 	private String nickname;
 
+	@Column(length = 2000)
+	private String profileImage;
+
 	@Embedded
 	private OauthInfo oauthInfo;
 
@@ -51,11 +54,13 @@ public class Member extends BaseTimeEntity {
 	@Builder(access = AccessLevel.PRIVATE)
 	private Member(
 		String nickname,
+		String profileImage,
 		OauthInfo oauthInfo,
 		MemberStatus status,
 		MemberRole role,
 		LocalDateTime lastLoginAt) {
 		this.nickname = nickname;
+		this.profileImage = profileImage;
 		this.oauthInfo = oauthInfo;
 		this.status = status;
 		this.role = role;
@@ -69,6 +74,16 @@ public class Member extends BaseTimeEntity {
 			.status(MemberStatus.NORMAL)
 			.role(MemberRole.USER)
 			.build();
+	}
+
+	public static Member createNormalMember(OauthInfo oauthInfo, String nickname, String profileImage) {
+		return Member.builder()
+				.nickname(nickname)
+				.oauthInfo(oauthInfo)
+				.profileImage(profileImage)
+				.status(MemberStatus.NORMAL)
+				.role(MemberRole.USER)
+				.build();
 	}
 
 	public void updateLastLoginAt() {
