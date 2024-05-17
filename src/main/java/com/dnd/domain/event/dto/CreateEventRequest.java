@@ -24,4 +24,8 @@ public class CreateEventRequest {
     private LocalDateTime startAt;
 
     private LocalDateTime finishAt;
+
+    private String reservationUrl;
+
+    private Integer cost;
 }

@@ -21,6 +21,10 @@ public enum ErrorCode {
 	INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않는 토큰입니다."),
 	EXPIRED_REFRESH_TOKEN(HttpStatus.FORBIDDEN, "리프레시 토큰이 만료되었습니다."),
 
+	// Image
+	IMAGE_KEY_NOT_FOUND(HttpStatus.NOT_FOUND, "이미지 키를 찾을 수 없습니다."),
+	IMAGE_FILE_EXTENSION_NOT_FOUND(HttpStatus.NOT_FOUND, "이미지 파일 형식을 찾을 수 없습니다."),
+
 	// Member
 	MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다."),
 
