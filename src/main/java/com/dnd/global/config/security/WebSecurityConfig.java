@@ -3,6 +3,8 @@ package com.dnd.global.config.security;
 import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.security.config.Customizer.*;
 
+import java.util.Arrays;
+
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -85,9 +87,8 @@ public class WebSecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.addAllowedOriginPattern(UrlConstants.LOCAL_DOMAIN_URL.getValue());
-		configuration.addAllowedOrigin("*");
-		configuration.addAllowedOriginPattern("*");
+		configuration.setAllowedOrigins(Arrays.asList(UrlConstants.LOCAL_DOMAIN_URL.getValue(), UrlConstants.IMAGE_DOMAIN_URL.getValue()));
+		configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
 		configuration.addAllowedMethod("*");
 		configuration.addAllowedHeader("*");
 		configuration.setAllowCredentials(true);
