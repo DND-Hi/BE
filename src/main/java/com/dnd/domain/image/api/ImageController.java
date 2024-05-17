@@ -26,18 +26,18 @@ public class ImageController {
 
 	private final ImageService imageService;
 	@Operation(
-		summary = "미션 기록 이미지 Presigned URL 생성",
-		description = "미션 기록 이미지 Presigned URL를 생성합니다.")
+		summary = "축제 이미지 Presigned URL 생성",
+		description = "축제 이미지 Presigned URL를 생성합니다.")
 	@PostMapping("/records/upload-url")
-	public PresignedUrlResponse missionRecordPresignedUrlCreate(
+	public PresignedUrlResponse eventPresignedUrlCreate(
 		@Valid @RequestBody EventImageCreateRequest request,
 		@LoginUsers CustomUserDetails userDetails) {
 		return imageService.createEventPresignedUrl(request, userDetails.getMemberId());
 	}
 
-	@Operation(summary = "미션 기록 이미지 업로드 완료처리", description = "미션 기록 이미지 업로드 완료 시 호출하시면 됩니다.")
+	@Operation(summary = "축제 이미지 업로드 완료처리", description = "축제 이미지 업로드 완료 시 호출하시면 됩니다.")
 	@PostMapping("/records/upload-complete")
-	public void missionRecordUploaded(
+	public void eventImageUploaded(
 		@Valid @RequestBody EventImageUploadCompleteRequest request,
 		@LoginUsers CustomUserDetails userDetails) {
 		imageService.uploadCompleteEventImage(request, userDetails.getMemberId());
