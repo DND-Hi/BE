@@ -1,5 +1,6 @@
 package com.dnd.domain.bookmark.dto;
 
+import com.dnd.domain.event.domain.HostType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ public class BookmarkResponse {
     private String title;
     private String description;
     private String host;
+    private HostType hostType;
     private Integer cost;
     private LocalDateTime startAt;
     private LocalDateTime finishAt;

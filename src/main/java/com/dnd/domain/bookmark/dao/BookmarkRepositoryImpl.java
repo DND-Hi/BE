@@ -27,6 +27,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom{
                                 event.title,
                                 event.description,
                                 event.host,
+                                event.hostType,
                                 event.cost,
                                 event.startAt,
                                 event.finishAt,
