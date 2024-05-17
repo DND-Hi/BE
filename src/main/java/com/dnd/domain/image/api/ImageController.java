@@ -28,7 +28,7 @@ public class ImageController {
 	@Operation(
 		summary = "축제 이미지 Presigned URL 생성",
 		description = "축제 이미지 Presigned URL를 생성합니다.")
-	@PostMapping("/records/upload-url")
+	@PostMapping("/event/upload-url")
 	public PresignedUrlResponse eventPresignedUrlCreate(
 		@Valid @RequestBody EventImageCreateRequest request,
 		@LoginUsers CustomUserDetails userDetails) {
@@ -36,7 +36,7 @@ public class ImageController {
 	}
 
 	@Operation(summary = "축제 이미지 업로드 완료처리", description = "축제 이미지 업로드 완료 시 호출하시면 됩니다.")
-	@PostMapping("/records/upload-complete")
+	@PostMapping("/event/upload-complete")
 	public void eventImageUploaded(
 		@Valid @RequestBody EventImageUploadCompleteRequest request,
 		@LoginUsers CustomUserDetails userDetails) {

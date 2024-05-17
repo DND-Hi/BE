@@ -47,6 +47,7 @@ public class WebSecurityConfig {
 		"/auth/**",
 		"/event/**",
 		"/member/**",
+		"/image/**",
 		"/index.html",
 		"/favicon.ico",
 		"/robots.txt",
@@ -85,7 +86,7 @@ public class WebSecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 
 		// configuration.addAllowedOriginPattern(UrlConstants.PROD_DOMAIN_URL.getValue());
-		configuration.addAllowedOriginPattern(UrlConstants.LOCAL_DOMAIN_URL.getValue());
+		configuration.addAllowedOriginPattern("*");
 		configuration.addAllowedMethod("*");
 		configuration.addAllowedHeader("*");
 		configuration.setAllowCredentials(true);

@@ -45,7 +45,7 @@ public class ImageService {
 	public PresignedUrlResponse createEventPresignedUrl(final EventImageCreateRequest request, Long memberId) {
 		final Member member = memberRepository.findById(memberId)
 			.orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
-		Event event= findEventById(request.eventId());
+		Event event = findEventById(request.eventId());
 
 		validateEventUserMismatch(event, member);
 
@@ -161,6 +161,8 @@ public class ImageService {
 		String imageKey,
 		ImageFileExtension imageFileExtension) {
 		return UrlConstants.IMAGE_DOMAIN_URL.getValue()
+			+ "/"
+			+ storageProperties.bucket()
 			+ "/"
 			+ springEnvironmentUtil.getCurrentProfile()
 			+ "/"
