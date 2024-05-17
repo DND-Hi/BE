@@ -55,6 +55,8 @@ public class Event extends BaseTimeEntity implements Serializable {
 
     private Integer cost;
 
+    private int bookmarkCount;
+
     @Builder(access = AccessLevel.PRIVATE)
     public Event(String title,
                  String description,
@@ -68,6 +70,7 @@ public class Event extends BaseTimeEntity implements Serializable {
                  LocalDateTime finishAt,
                  String reservationUrl,
                  Integer cost,
+                 int bookmarkCount,
                  Member member) {
         this.title = title;
         this.description = description;
@@ -82,6 +85,7 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.member = member;
         this.reservationUrl = reservationUrl;
         this.cost = cost;
+        this.bookmarkCount = bookmarkCount;
     }
 
     public static Event createEvent(
@@ -113,6 +117,7 @@ public class Event extends BaseTimeEntity implements Serializable {
                 .uploadStatus(ImageUploadStatus.NONE)
                 .reservationUrl(reservationUrl)
                 .cost(cost)
+                .bookmarkCount(0)
                 .build();
     }
 
@@ -147,5 +152,17 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.reservationUrl = reservationUrl;
         this.cost = cost;
         this.imageUrl = imageUrl;
+    }
+
+    public void increaseBookmarkCount() {
+        this.bookmarkCount ++;
+    }
+
+    public void decreaseBookmarkCount() {
+        if (this.bookmarkCount == 0) {
+            return ;
+        }
+
+        this.bookmarkCount --;
     }
 }

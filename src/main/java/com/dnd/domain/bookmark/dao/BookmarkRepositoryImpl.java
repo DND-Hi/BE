@@ -31,7 +31,9 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom{
                                 event.cost,
                                 event.startAt,
                                 event.finishAt,
-                                event.reservationUrl)
+                                event.reservationUrl,
+                                event.bookmarkCount
+                        )
                 )
                 .from(bookmark)
                 .join(event)

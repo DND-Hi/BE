@@ -19,4 +19,5 @@ public class BookmarkResponse {
     private LocalDateTime startAt;
     private LocalDateTime finishAt;
     private String reservationUrl;
+    private int bookmarkCount;
 }

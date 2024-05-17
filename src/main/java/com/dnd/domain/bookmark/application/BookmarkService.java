@@ -35,6 +35,7 @@ public class BookmarkService {
         Bookmark bookMark = Bookmark.createBookMark(memberId, event.getId());
         bookmarkRepository.save(bookMark);
 
+        event.increaseBookmarkCount();
         return bookMark.getId();
     }
 
@@ -52,6 +53,11 @@ public class BookmarkService {
     public void delete(Long memberId, Long bookmarkId) {
         Bookmark bookmark = bookmarkRepository.findById(bookmarkId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BOOKMARK_NOT_FOUND));
+
+        Event event = eventRepository.findById(bookmark.getEventId())
+                .orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
+
+        event.decreaseBookmarkCount();
 
         validateMember(memberId, bookmark);
         bookmarkRepository.delete(bookmark);
