@@ -67,11 +67,9 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    public List<SearchEventResponse> searchEvents(SearchEventRequest request, Long memberId) {
+    public List<SearchEventResponse> searchEvents(Double latitude, Double longitude, int distance, Long memberId) {
         List<Long> result = eventLocationRepository.findAllByLocation(
-                request.getLongitude(),
-                request.getLatitude(),
-                request.getDistance()
+                latitude, longitude, distance
         );
 
         List<Event> events = result.stream()

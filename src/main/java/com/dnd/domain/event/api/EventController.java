@@ -35,11 +35,13 @@ public class EventController {
     }
 
     @Operation(summary = "반경 내 이벤트 조회")
-    @PostMapping
+    @GetMapping
     public List<SearchEventResponse> findEvent(
-            @RequestBody @Valid SearchEventRequest request,
+            @RequestParam Double langitude,
+            @RequestParam Double longitude,
+            @RequestParam int distance,
             @PathVariable Long memberId) {
-        return eventService.searchEvents(request, memberId);
+        return eventService.searchEvents(langitude, longitude, distance, memberId);
     }
 
     @Operation(summary = "내가 만든 축제 조회")
