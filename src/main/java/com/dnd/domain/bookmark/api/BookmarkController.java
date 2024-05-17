@@ -4,7 +4,6 @@ import com.dnd.domain.bookmark.application.BookmarkService;
 import com.dnd.domain.bookmark.dto.BookmarkResponse;
 import com.dnd.domain.bookmark.dto.CreateBookmarkRequest;
 import com.dnd.domain.common.annotation.LoginUsers;
-import com.dnd.global.common.response.GlobalResponse;
 import com.dnd.global.config.security.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
