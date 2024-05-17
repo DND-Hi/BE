@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: "actuator"
+management:
+  endpoints:
+    web:
+      base-path: /dnd-actuator
+    jmx:
+      exposure:
+        exclude: "*"
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true

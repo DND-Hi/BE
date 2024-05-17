@@ -3,6 +3,9 @@ server:
   shutdown: graceful
 
 spring:
+  profiles:
+    include:
+      - actuator
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
