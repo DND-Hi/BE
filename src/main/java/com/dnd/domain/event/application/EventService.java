@@ -67,7 +67,7 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    public List<SearchEventResponse> searchEvents(Double latitude, Double longitude, int distance, Long memberId) {
+    public List<SearchEventResponse> searchEvents(Double latitude, Double longitude, int distance) {
         List<Long> result = eventLocationRepository.findAllByLocation(
                 latitude, longitude, distance
         );
@@ -75,11 +75,6 @@ public class EventService {
         List<Event> events = result.stream()
                 .map(id -> eventRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND)))
                 .toList();
-
-        Set<Long> bookmarks = bookmarkRepository.findBookmarkByMemberId(memberId)
-                .stream()
-                .map(Bookmark::getEventId)
-                .collect(Collectors.toSet());
 
         List<SearchEventResponse> response = events.stream()
                 .map(event -> new SearchEventResponse(
@@ -92,7 +87,7 @@ public class EventService {
                                 event.getLatitude(),
                                 event.getStartAt(),
                                 event.getFinishAt(),
-                                memberId != null && bookmarks.contains(event.getId())
+                                false
                         )
                 ).toList();
 
@@ -130,14 +125,9 @@ public class EventService {
 
     }
 
-    public SearchEventResponse findEvent(Long eventId, Long memberId) {
+    public SearchEventResponse findEvent(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
-
-        Set<Long> bookmarks = bookmarkRepository.findBookmarkByMemberId(memberId)
-                .stream()
-                .map(Bookmark::getEventId)
-                .collect(Collectors.toSet());
 
         return new SearchEventResponse(
                 event.getId(),
@@ -149,17 +139,12 @@ public class EventService {
                 event.getLatitude(),
                 event.getStartAt(),
                 event.getFinishAt(),
-                memberId != null && bookmarks.contains(event.getId())
+                false
         );
     }
 
-    public List<SearchEventResponse> searchEvent(String keyword, Long memberId) {
+    public List<SearchEventResponse> searchEvent(String keyword) {
         List<Event> events = eventRepository.findByTitleContaining(keyword);
-
-        Set<Long> bookmarks = bookmarkRepository.findBookmarkByMemberId(memberId)
-                .stream()
-                .map(Bookmark::getEventId)
-                .collect(Collectors.toSet());
 
         List<SearchEventResponse> response = events.stream()
                 .map(event -> new SearchEventResponse(
@@ -172,7 +157,7 @@ public class EventService {
                                 event.getLatitude(),
                                 event.getStartAt(),
                                 event.getFinishAt(),
-                        memberId != null && bookmarks.contains(event.getId())
+                        false
                         )
                 ).toList();
         return response;

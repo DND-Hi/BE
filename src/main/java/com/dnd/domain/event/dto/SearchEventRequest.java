@@ -1,14 +1,14 @@
 package com.dnd.domain.event.dto;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SearchEventRequest {
-    @NotNull
     private Double longitude;
-    @NotNull
     private Double latitude;
-
     private int distance;
 }

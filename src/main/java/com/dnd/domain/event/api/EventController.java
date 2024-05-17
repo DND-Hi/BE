@@ -37,11 +37,10 @@ public class EventController {
     @Operation(summary = "반경 내 이벤트 조회")
     @GetMapping
     public List<SearchEventResponse> findEvent(
-            @RequestParam Double langitude,
+            @RequestParam Double latitude,
             @RequestParam Double longitude,
-            @RequestParam int distance,
-            @PathVariable Long memberId) {
-        return eventService.searchEvents(langitude, longitude, distance, memberId);
+            @RequestParam int distance) {
+        return eventService.searchEvents(latitude, longitude, distance);
     }
 
     @Operation(summary = "내가 만든 축제 조회")
@@ -54,15 +53,14 @@ public class EventController {
     @Operation(summary = "이벤트 상세 조회")
     @GetMapping("/{eventId}")
     public SearchEventResponse eventFind(
-            @PathVariable Long eventId,
-            @PathVariable Long memberId) {
-        return eventService.findEvent(eventId, memberId);
+            @PathVariable Long eventId) {
+        return eventService.findEvent(eventId);
     }
 
     @Operation(summary = "이벤트 검색")
     @GetMapping("/search")
-    public List<SearchEventResponse> eventSearch(@RequestParam String keyword, @PathVariable Long memberId) {
-        return eventService.searchEvent(keyword, memberId);
+    public List<SearchEventResponse> eventSearch(@RequestParam String keyword) {
+        return eventService.searchEvent(keyword);
     }
 
     @Operation(summary = "이벤트 수정")
