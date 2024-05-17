@@ -2,12 +2,15 @@ package com.dnd.domain.event.api;
 
 import com.dnd.domain.event.application.EventService;
 import com.dnd.domain.event.dto.CreateEventRequest;
+import com.dnd.domain.event.dto.SearchEventProjection;
 import com.dnd.domain.event.dto.SearchEventRequest;
 import com.dnd.global.common.response.GlobalResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/event")
@@ -25,7 +28,8 @@ public class EventController {
 
     @Operation(summary = "이벤트 조회")
     @GetMapping("/search")
-    public void search(@RequestBody @Valid SearchEventRequest request) {
-        eventService.searchEvents(request);
+    public GlobalResponse search(@RequestBody @Valid SearchEventRequest request) {
+        List<SearchEventProjection> searchResults = eventService.searchEvents(request);
+        return GlobalResponse.success(200, searchResults);
     }
 }
