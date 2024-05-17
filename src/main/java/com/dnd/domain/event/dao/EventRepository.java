@@ -1,7 +1,7 @@
 package com.dnd.domain.event.dao;
 
-import com.dnd.domain.event.Event;
 import com.dnd.domain.event.dto.SearchEventProjection;
+import com.dnd.domain.event.domain.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

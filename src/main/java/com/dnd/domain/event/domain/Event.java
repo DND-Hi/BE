@@ -1,6 +1,8 @@
-package com.dnd.domain.event;
+package com.dnd.domain.event.domain;
 
 import com.dnd.domain.common.model.BaseTimeEntity;
+import com.dnd.domain.member.domain.Member;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,6 +40,11 @@ public class Event extends BaseTimeEntity implements Serializable {
 
     private LocalDateTime finishAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+
     @Builder(access = AccessLevel.PRIVATE)
     public Event(String title,
                  String description,
@@ -46,7 +53,8 @@ public class Event extends BaseTimeEntity implements Serializable {
                  Double longitude,
                  Double latitude,
                  LocalDateTime startAt,
-                 LocalDateTime finishAt) {
+                 LocalDateTime finishAt,
+                 Member member) {
         this.title = title;
         this.description = description;
         this.host = host;
@@ -55,6 +63,7 @@ public class Event extends BaseTimeEntity implements Serializable {
         this.latitude = latitude;
         this.startAt = startAt;
         this.finishAt = finishAt;
+        this.member = member;
     }
 
     public static Event createEvent(
@@ -65,7 +74,8 @@ public class Event extends BaseTimeEntity implements Serializable {
             Double longitude,
             Double latitude,
             LocalDateTime startAt,
-            LocalDateTime finishAt) {
+            LocalDateTime finishAt,
+            Member member) {
 
         return Event.builder()
                 .title(title)
@@ -76,6 +86,7 @@ public class Event extends BaseTimeEntity implements Serializable {
                 .latitude(latitude)
                 .startAt(startAt)
                 .finishAt(finishAt)
+                .member(member)
                 .build();
     }
 }

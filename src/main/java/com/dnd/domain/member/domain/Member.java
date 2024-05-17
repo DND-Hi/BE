@@ -1,9 +1,13 @@
 package com.dnd.domain.member.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.dnd.domain.common.model.BaseTimeEntity;
+import com.dnd.domain.event.domain.Event;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -12,6 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +44,9 @@ public class Member extends BaseTimeEntity {
 	private MemberRole role;
 
 	private LocalDateTime lastLoginAt;
+
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	private List<Event> events = new ArrayList<>();
 
 	@Builder(access = AccessLevel.PRIVATE)
 	private Member(
