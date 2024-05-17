@@ -31,10 +31,9 @@ public class ImageController {
 		description = "축제 이미지 Presigned URL를 생성합니다.")
 	@PostMapping("/event/upload-url")
 	public PresignedUrlResponse eventPresignedUrlCreate(
-		@Valid @RequestBody EventImageCreateRequest request,
 		@Parameter(hidden = true)
 		@LoginUsers CustomUserDetails userDetails) {
-		return imageService.createEventPresignedUrl(request, userDetails.getMemberId());
+		return imageService.createEventPresignedUrl(userDetails.getMemberId());
 	}
 
 	@Operation(summary = "축제 이미지 업로드 완료처리", description = "축제 이미지 업로드 완료 시 호출하시면 됩니다.")

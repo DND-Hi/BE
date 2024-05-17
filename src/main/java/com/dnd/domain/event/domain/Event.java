@@ -134,4 +134,18 @@ public class Event extends BaseTimeEntity implements Serializable {
         }
         this.uploadStatus = ImageUploadStatus.PENDING;
     }
+
+    public void updateEvent(String title, String description, String host, Double longitude, Double latitude,
+        LocalDateTime startAt, LocalDateTime finishAt, String reservationUrl, Integer cost, String imageUrl) {
+        this.title = title;
+        this.description = description;
+        this.host = host;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.startAt = startAt;
+        this.finishAt = finishAt;
+        this.reservationUrl = reservationUrl;
+        this.cost = cost;
+        this.imageUrl = imageUrl;
+    }
 }
