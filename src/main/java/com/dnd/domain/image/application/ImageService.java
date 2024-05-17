@@ -42,39 +42,22 @@ public class ImageService {
 	private final AmazonS3 amazonS3;
 	private final SpringEnvironmentUtil springEnvironmentUtil;
 
-	public PresignedUrlResponse createEventPresignedUrl(final EventImageCreateRequest request, Long memberId) {
-		final Member member = memberRepository.findById(memberId)
-			.orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
-		Event event = findEventById(request.eventId());
-
-		validateEventUserMismatch(event, member);
-
+	public PresignedUrlResponse createEventPresignedUrl(Long memberId) {
 		String imageKey = generateUUID();
-		String fileName =
-			createFileName(
+		String fileName = createFileName(
 				ImageType.EVENT,
-				request.eventId(),
-				imageKey,
-				request.imageFileExtension()
+				memberId,
+				imageKey
 			);
 
 		GeneratePresignedUrlRequest generatePresignedUrlRequest =
 			createGeneratePreSignedUrlRequest(
 				storageProperties.bucket(),
-				fileName,
-				request.imageFileExtension().getUploadExtension()
+				fileName
 			);
 
 		String presignedUrl = amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
 
-		imageRepository.save(
-			Image.createImage(
-				ImageType.EVENT,
-				request.eventId(),
-				imageKey,
-				request.imageFileExtension()
-			)
-		);
 		return PresignedUrlResponse.from(presignedUrl);
 	}
 
@@ -114,11 +97,11 @@ public class ImageService {
 	}
 
 	private GeneratePresignedUrlRequest createGeneratePreSignedUrlRequest(
-		String bucket, String fileName, String fileExtension) {
+		String bucket, String fileName) {
 		GeneratePresignedUrlRequest generatePresignedUrlRequest =
 			new GeneratePresignedUrlRequest(bucket, fileName, HttpMethod.PUT)
 				.withKey(fileName)
-				.withContentType("image/" + fileExtension)
+				.withContentType("image/" + "png")
 				.withExpiration(getPreSignedUrlExpiration());
 
 		generatePresignedUrlRequest.addRequestParameter(
@@ -140,18 +123,17 @@ public class ImageService {
 
 	private String createFileName(
 		ImageType imageType,
-		Long targetId,
-		String imageKey,
-		ImageFileExtension imageFileExtension) {
+		Long memberId,
+		String imageKey) {
 		return springEnvironmentUtil.getCurrentProfile()
 			+ "/"
 			+ imageType.getValue()
 			+ "/"
-			+ targetId
+			+ memberId
 			+ "/"
 			+ imageKey
 			+ "."
-			+ imageFileExtension.getUploadExtension();
+			+ ImageFileExtension.PNG;
 	}
 
 	private String createReadImageUrl(

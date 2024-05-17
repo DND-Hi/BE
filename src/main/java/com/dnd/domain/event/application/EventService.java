@@ -160,4 +160,45 @@ public class EventService {
                 ).toList();
         return response;
     }
+
+    public Long updateEvent(Long eventId, CreateEventRequest request, Long memberId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
+        if (!event.getMember().getId().equals(member.getId())) {
+            throw new CustomException(ErrorCode.EVENT_USER_MISMATCH);
+        }
+
+        event.updateEvent(
+                request.getTitle(),
+                request.getDescription(),
+                request.getHost(),
+                request.getLongitude(),
+                request.getLatitude(),
+                request.getStartAt(),
+                request.getFinishAt(),
+                request.getReservationUrl(),
+                request.getCost(),
+                request.getImageUrl()
+        );
+
+        return event.getId();
+    }
+
+    public void deleteEvent(Long eventId, Long memberId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
+        if (!event.getMember().getId().equals(member.getId())) {
+            throw new CustomException(ErrorCode.EVENT_USER_MISMATCH);
+        }
+
+        eventRepository.delete(event);
+    }
 }

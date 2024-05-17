@@ -57,4 +57,21 @@ public class EventController {
     public List<SearchEventResponse> eventSearch(@RequestParam String keyword) {
         return eventService.searchEvent(keyword);
     }
+
+    @Operation(summary = "이벤트 수정")
+    @PutMapping("/{eventId}")
+    public Long updateEvent(
+        @PathVariable Long eventId,
+        @RequestBody @Valid CreateEventRequest request,
+        @Parameter(hidden = true) @LoginUsers CustomUserDetails userDetails) {
+        return eventService.updateEvent(eventId, request, userDetails.getMemberId());
+    }
+
+    @Operation(summary = "이벤트 삭제")
+    @DeleteMapping("/{eventId}")
+    public void deleteEvent(
+        @PathVariable Long eventId,
+        @Parameter(hidden = true) @LoginUsers CustomUserDetails userDetails) {
+        eventService.deleteEvent(eventId, userDetails.getMemberId());
+    }
 }
