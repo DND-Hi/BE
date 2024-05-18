@@ -32,6 +32,12 @@ public class BookmarkService {
         Event event = eventRepository.findById(request.getEventId())
                 .orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
 
+        boolean exists = bookmarkRepository.existsByMemberIdAndEventId(memberId, event.getId());
+
+        if (exists) {
+            throw new CustomException(ErrorCode.BOOKMARK_ALREADY_EXISTS);
+        }
+
         Bookmark bookMark = Bookmark.createBookMark(memberId, event.getId());
         bookmarkRepository.save(bookMark);
 

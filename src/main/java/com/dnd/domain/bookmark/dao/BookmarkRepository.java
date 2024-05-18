@@ -8,4 +8,5 @@ import java.util.List;
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long>, BookmarkRepositoryCustom{
 
     List<Bookmark> findBookmarkByMemberId(Long memberId);
+    boolean existsByMemberIdAndEventId(Long memberId, Long eventId);
 }
